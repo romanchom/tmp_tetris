@@ -34,6 +34,9 @@ public class Grid : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.A))
             current.move(-1, 0);
+
+        if (Input.GetKeyDown(KeyCode.W))
+            current.Rotate();
     }
 
     public void Spawn()
@@ -50,7 +53,7 @@ public class Grid : MonoBehaviour {
 
         foreach(GameObject comp in current.components)
         {
-            grid[(int)comp.transform.position.x, (int)comp.transform.position.y] = comp;
+            grid[Mathf.RoundToInt(comp.transform.position.x), Mathf.RoundToInt(comp.transform.position.y)] = comp;
         }
 
         checkFullLines();
