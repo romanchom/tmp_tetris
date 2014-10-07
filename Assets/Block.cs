@@ -77,6 +77,20 @@ public class Block : MonoBehaviour {
         transform.RotateAround(transform.position + transform.TransformVector(new Vector3(Mathf.Round(width / 2), Mathf.Round(height / 2))), new Vector3(0, 0, 1), 90);
 
         foreach(GameObject comp in components)
+        {
+            int x_comp = (int)comp.transform.position.x;
+            int y_comp = (int)comp.transform.position.y;
+
+            if(x_comp < 0 || x_comp >= grid.grid.GetLength(0) ||
+                y_comp < 0 || y_comp >= grid.grid.GetLength(1) ||
+                grid.grid[x_comp, y_comp] != null)
+            {
+                transform.RotateAround(transform.position + transform.TransformVector(new Vector3(Mathf.Round(width / 2), Mathf.Round(height / 2))), new Vector3(0, 0, 1), -90);
+                break;
+            }
+        }
+
+        foreach(GameObject comp in components)
             comp.transform.rotation = Quaternion.identity;
 
         foreach (GameObject comp in components)
