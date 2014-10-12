@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Grid : MonoBehaviour {
@@ -7,7 +8,7 @@ public class Grid : MonoBehaviour {
 
     public GameObject[,] grid;
     public GameObject[] blocks;
-
+    public Text textScore;
     private Block current;
 
     public float tileUpdate;
@@ -21,6 +22,16 @@ public class Grid : MonoBehaviour {
 	// Update is called once per frame
     void Update()
     {
+        //SMOOTH MOOD
+        //current.MoveSmooth(0, -1);
+
+        //if (Input.GetKeyDown(KeyCode.D))
+        //    current.MoveSide(4);
+
+        //if (Input.GetKeyDown(KeyCode.A))
+        //    current.MoveSide(-4);
+
+        //HARD MOVE
         if (current && updateTime <= 0)
         {
             current.move(0, -1);
@@ -75,6 +86,8 @@ public class Grid : MonoBehaviour {
                 i--;
             }
 		}
+
+        textScore.text = score.ToString();
 	}
 
 	void removeLine(int line) {
