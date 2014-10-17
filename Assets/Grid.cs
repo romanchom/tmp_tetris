@@ -33,13 +33,17 @@ public class Grid : MonoBehaviour {
         //    current.MoveSide(-4);
 
         //HARD MOVE
-        if (Input.GetKeyDown(KeyCode.S) || (current && updateTime <= 0))
+        if (current && updateTime <= 0)
         {
             current.move(0, -1);
             updateTime = tileUpdate;
         }
         else
             updateTime -= Time.deltaTime;
+
+		if (Input.GetKey(KeyCode.S)) {
+			updateTime -= Time.deltaTime * 2;
+		}
 
         if (Input.GetKeyDown(KeyCode.D))
             current.move(1, 0);
@@ -72,7 +76,7 @@ public class Grid : MonoBehaviour {
     }
 
 	public void checkFullLines() {
-		for (int i = 0; i < 20; i++) {
+		for (int i = 19; i >= 0; i--) {
 			bool full = true;
 			for (int j = 0; j < 10; ++j) {
 				if(grid[j, i] == null)
@@ -83,8 +87,7 @@ public class Grid : MonoBehaviour {
 			}
             if (full)
             {
-                removeLine(i);
-                i--;
+				removeLine(i);
             }
 		}
 
