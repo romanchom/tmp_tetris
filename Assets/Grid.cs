@@ -9,6 +9,7 @@ public class Grid : MonoBehaviour {
     public GameObject[,] grid;
     public GameObject[] blocks;
     public Text textScore;
+	public ParticleSystem particles;
     private Block current;
 
     public float tileUpdate;
@@ -32,7 +33,7 @@ public class Grid : MonoBehaviour {
         //    current.MoveSide(-4);
 
         //HARD MOVE
-        if (current && updateTime <= 0)
+        if (Input.GetKeyDown(KeyCode.S) || (current && updateTime <= 0))
         {
             current.move(0, -1);
             updateTime = tileUpdate;
@@ -90,6 +91,8 @@ public class Grid : MonoBehaviour {
         textScore.text = score.ToString();
 	}
 
+	Color32 white = new Color32(255, 255, 255, 255);
+
 	void removeLine(int line) {
 
         score += 10;
@@ -113,5 +116,9 @@ public class Grid : MonoBehaviour {
                 obj.transform.position = obj.transform.position + new Vector3(0, -1, 0);
             }
         }
+
+		for (int i = 0; i < 100; ++i) {
+			particles.Emit(new Vector3(Random.Range(0.0f, 10.0f), line, 0), Random.insideUnitCircle * 2, 2.0f, Random.Range(0.5f, 1.5f), white);
+		}
 	}
 }
