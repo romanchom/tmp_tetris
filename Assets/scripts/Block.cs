@@ -31,12 +31,18 @@ public class Block : MonoBehaviour {
             int x_comp = Mathf.RoundToInt(comp.transform.position.x) + dx;
             int y_comp = Mathf.RoundToInt(comp.transform.position.y) + dy;
 
+
             if(x_comp < 0 || x_comp >= grid.grid.GetLength(0) ||
                 y_comp < 0 || y_comp >= grid.grid.GetLength(1) ||
                 grid.grid[x_comp, y_comp] != null)
             {
-                if (y_comp < 0 || grid.grid[Mathf.RoundToInt(comp.transform.position.x), y_comp] != null)
-                    end = true;
+				if (y_comp < 0 || grid.grid[Mathf.RoundToInt(comp.transform.position.x), y_comp] != null) {
+					if (y_comp >= 19) {
+						grid.Lose();
+						return;
+					}
+					end = true;
+				}
 
                 dx = 0;
                 dy = 0;
