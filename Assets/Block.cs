@@ -53,7 +53,7 @@ public class Block : MonoBehaviour {
 
     public void Rotate()
     {
-        transform.RotateAround(transform.position + transform.TransformVector(new Vector3(Mathf.Round(width / 2), Mathf.Round(height / 2))), new Vector3(0, 0, 1), 90);
+        transform.RotateAround(transform.position + transform.TransformVector(new Vector3(Mathf.Round(width / 2), Mathf.Round(height / 2))), new Vector3(0, 0, 1), -90);
 
         foreach(GameObject comp in components)
         {
@@ -64,7 +64,7 @@ public class Block : MonoBehaviour {
                 y_comp < 0 || y_comp >= grid.grid.GetLength(1) ||
                 grid.grid[x_comp, y_comp] != null)
             {
-                transform.RotateAround(transform.position + transform.TransformVector(new Vector3(Mathf.Round(width / 2), Mathf.Round(height / 2))), new Vector3(0, 0, 1), -90);
+                transform.RotateAround(transform.position + transform.TransformVector(new Vector3(Mathf.Round(width / 2), Mathf.Round(height / 2))), new Vector3(0, 0, 1), +90);
                 break;
             }
         }
