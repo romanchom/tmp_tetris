@@ -9,6 +9,7 @@ public class Grid : MonoBehaviour {
 		set{
 			if (value - _score > 10) {
 				PopupFactory.CreatePopup(popups[Random.Range(0, popups.Length)]);
+				audio.PlayOneShot(cheers[Random.Range(0, cheers.Length)], 10);
 			}
 			_score = value; 
 			textScore.text = _score.ToString(); 
@@ -21,6 +22,7 @@ public class Grid : MonoBehaviour {
 	public ParticleSystem particles;
 	public Transform canvas;
 	public string[] popups;
+	public AudioClip[] cheers;
 
 	float updateTime;
 	float tileUpdate;
