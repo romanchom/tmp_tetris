@@ -14,28 +14,17 @@ public class Grid : MonoBehaviour {
 
     public float tileUpdate;
     private float updateTime;
-	// Use this for initialization
+
 	void Start () {
         grid = new GameObject[10, 25];
         Spawn();
 	}
 	
-	// Update is called once per frame
     void Update()
     {
-        //SMOOTH MOOD
-        //current.MoveSmooth(0, -1);
-
-        //if (Input.GetKeyDown(KeyCode.D))
-        //    current.MoveSide(4);
-
-        //if (Input.GetKeyDown(KeyCode.A))
-        //    current.MoveSide(-4);
-
-        //HARD MOVE
         if (current && updateTime <= 0)
         {
-            current.move(0, -1);
+            current.Move(0, -1);
             updateTime = tileUpdate;
         }
         else
@@ -46,10 +35,10 @@ public class Grid : MonoBehaviour {
 		}
 
         if (Input.GetKeyDown(KeyCode.D))
-            current.move(1, 0);
+            current.Move(1, 0);
 
         if (Input.GetKeyDown(KeyCode.A))
-            current.move(-1, 0);
+            current.Move(-1, 0);
 
         if (Input.GetKeyDown(KeyCode.W))
             current.Rotate();
@@ -57,20 +46,25 @@ public class Grid : MonoBehaviour {
 
     public void Spawn()
     {
+		if (current != null) {
+			foreach (GameObject comp in current.components) {
+				grid[Mathf.RoundToInt(comp.transform.position.x), Mathf.RoundToInt(comp.transform.position.y)] = comp;
+			}
+			while (current.transform.childCount > 0) {
+				current.transform.GetChild(0).parent = transform;
+			}
+			Destroy(current.gameObject);
+		}
         int blocksCount = blocks.Length;
         int block = Random.Range(0, blocksCount);
 
-        current = (GameObject.Instantiate(blocks[block], new Vector2(0, 0), blocks[block].transform.rotation) as GameObject).GetComponent<Block>();
-        int x = Random.Range(0, 10 - current.GetWidth());
+        current = (Instantiate(blocks[block], new Vector2(0, 0), blocks[block].transform.rotation) as GameObject).GetComponent<Block>();
+		current.Init();
+        int x = Random.Range(0, 10 - current.width);
         int y = 21;
 
         current.transform.position = new Vector2(x, y);
         current.grid = this;
-
-        foreach(GameObject comp in current.components)
-        {
-            grid[Mathf.RoundToInt(comp.transform.position.x), Mathf.RoundToInt(comp.transform.position.y)] = comp;
-        }
 
         checkFullLines();
     }
