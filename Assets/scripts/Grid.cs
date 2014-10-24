@@ -42,35 +42,43 @@ public class Grid : MonoBehaviour {
         Spawn();
 	}
 
+	void CreateParticle(Vector2 pos) {
+		particles.Emit(pos, (Vector3)(Random.insideUnitCircle * 2) + Vector3.forward, 2.0f, Random.Range(0.5f, 1.5f), RC.RandomColor());
+	}
 	
     void Update()
     {
-		sessionTime += Time.deltaTime;
-        if (current && updateTime <= 0)
-        {
-            current.Move(0, -1);
-			tileUpdate = 1 / (1 + sessionTime * 0.01f);
-			updateTime = tileUpdate;
-        }
-        else
-            updateTime -= Time.deltaTime;
-
-		if (Input.GetKey(KeyCode.S)) {
-			updateTime -= tileUpdate * 0.2f;
-			score++;
-			foreach (GameObject g in current.components) {
-				particles.Emit(g.transform.position + new Vector3(0.5f, 0, 0.5f), (Vector3)(Random.insideUnitCircle * 2) + Vector3.forward, 2.0f, Random.Range(0.5f, 1.5f), RC.RandomColor());
+		if (!gameOver) {
+			sessionTime += Time.deltaTime;
+			if (current && updateTime <= 0) {
+				current.Move(0, -1);
+				tileUpdate = 1 / (1 + sessionTime * 0.01f);
+				updateTime = tileUpdate;
 			}
+			else
+				updateTime -= Time.deltaTime;
+
+			if (Input.GetKey(KeyCode.S)) {
+				updateTime -= tileUpdate * 0.2f;
+				score++;
+				foreach (GameObject g in current.components) {
+					CreateParticle(g.transform.position + new Vector3(0.5f, 0, 0.5f));
+				}
+			}
+
+			if (Input.GetKeyDown(KeyCode.D))
+				current.Move(1, 0);
+
+			if (Input.GetKeyDown(KeyCode.A))
+				current.Move(-1, 0);
+
+			if (Input.GetKeyDown(KeyCode.W))
+				current.Rotate();
 		}
-
-        if (Input.GetKeyDown(KeyCode.D))
-            current.Move(1, 0);
-
-        if (Input.GetKeyDown(KeyCode.A))
-            current.Move(-1, 0);
-
-        if (Input.GetKeyDown(KeyCode.W))
-            current.Rotate();
+		else {
+			for(int i = 0; i < 5; ++i)
+				CreateParticle(new Vector2(Random.Range(0.0f, 12.0f), Random.Range(-3.0f, 20.0f)));
+		}
     }
 
     public void Spawn()
@@ -150,7 +158,7 @@ public class Grid : MonoBehaviour {
         }
 
 		for (int i = 0; i < 100; ++i) {
-			particles.Emit(new Vector3(Random.Range(0.0f, 10.0f), line, 0), (Vector3)(Random.insideUnitCircle * 2) + Vector3.forward, 2.0f, Random.Range(0.5f, 1.5f), RC.RandomColor());
+			CreateParticle(new Vector2(Random.Range(0.0f, 10.0f), line));
 		}
 	}
 
