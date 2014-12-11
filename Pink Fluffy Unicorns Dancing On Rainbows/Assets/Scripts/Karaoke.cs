@@ -24,8 +24,11 @@ public class Karaoke : MonoBehaviour {
 
     protected bool playing = false;
 
-    protected float idleY = -412.09f;
-    protected float currentY = -330f;
+    protected float idleY = 23f;
+    protected float currentY = 50f;
+
+    protected int idleSize = 50;
+    protected int currentSize = 55;
 
 	// Use this for initialization
 	void Start () {
@@ -50,7 +53,7 @@ public class Karaoke : MonoBehaviour {
         {
             ClearAllText();
             rainbows.fontStyle = FontStyle.Bold;
-            rainbows.fontSize = 25;
+            rainbows.fontSize = currentSize;
 
             rainbows.rectTransform.anchoredPosition = new Vector2(rainbows.rectTransform.anchoredPosition.x, currentY);
 
@@ -61,7 +64,7 @@ public class Karaoke : MonoBehaviour {
         {
             ClearAllText();
             on.fontStyle = FontStyle.Bold;
-            on.fontSize = 25;
+            on.fontSize = currentSize;
 
             on.rectTransform.anchoredPosition = new Vector2(on.rectTransform.anchoredPosition.x, currentY);
             
@@ -72,7 +75,7 @@ public class Karaoke : MonoBehaviour {
         {
             ClearAllText();
             dancing.fontStyle = FontStyle.Bold;
-            dancing.fontSize = 25;
+            dancing.fontSize = currentSize;
 
             dancing.rectTransform.anchoredPosition = new Vector2(dancing.rectTransform.anchoredPosition.x, currentY);
             
@@ -83,7 +86,7 @@ public class Karaoke : MonoBehaviour {
         {
             ClearAllText();
             unicorns.fontStyle = FontStyle.Bold;
-            unicorns.fontSize = 25;
+            unicorns.fontSize = currentSize;
 
             unicorns.rectTransform.anchoredPosition = new Vector2(unicorns.rectTransform.anchoredPosition.x, currentY);
             
@@ -94,7 +97,7 @@ public class Karaoke : MonoBehaviour {
         {
             ClearAllText();
             fluffy.fontStyle = FontStyle.Bold;
-            fluffy.fontSize = 25;
+            fluffy.fontSize = currentSize;
 
             fluffy.rectTransform.anchoredPosition = new Vector2(fluffy.rectTransform.anchoredPosition.x, currentY);
             
@@ -105,7 +108,7 @@ public class Karaoke : MonoBehaviour {
         {
             ClearAllText();
             pink.fontStyle = FontStyle.Bold;
-            pink.fontSize = 25;
+            pink.fontSize = currentSize;
 
             pink.rectTransform.anchoredPosition = new Vector2(pink.rectTransform.anchoredPosition.x, currentY);
             
@@ -122,12 +125,12 @@ public class Karaoke : MonoBehaviour {
         on.fontStyle = FontStyle.Normal;
         rainbows.fontStyle = FontStyle.Normal;
 
-        pink.fontSize = 20;
-        fluffy.fontSize = 20;
-        unicorns.fontSize = 20;
-        dancing.fontSize = 20;
-        on.fontSize = 20;
-        rainbows.fontSize = 20;
+        pink.fontSize = idleSize;
+        fluffy.fontSize = idleSize;
+        unicorns.fontSize = idleSize;
+        dancing.fontSize = idleSize;
+        on.fontSize = idleSize;
+        rainbows.fontSize = idleSize;
 
         pink.rectTransform.anchoredPosition     = new Vector2(pink.rectTransform.anchoredPosition.x,        idleY);
         fluffy.rectTransform.anchoredPosition   = new Vector2(fluffy.rectTransform.anchoredPosition.x,      idleY);
